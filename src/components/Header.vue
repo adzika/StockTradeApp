@@ -1,19 +1,21 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-      <a class="navbar-brand" href="#">Stock Trader</a>
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #e3f2fd;">
+
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <router-link to="/" tag="nav" class="navbar-brand" active-class="active" exact>Stock Trader</router-link>
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Portfolio</a>
+            <router-link class="nav-link" to="/portfolio">Portfolio</router-link>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Stocks</a>
+            <router-link class="nav-link" to="/stocks">Stocks</router-link>
           </li>
 
           <li class="nav-item">

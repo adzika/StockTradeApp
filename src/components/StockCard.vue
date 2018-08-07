@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        name: "StockCards.vue"
+        name: "StockCard.vue"
     }
 </script>
 
