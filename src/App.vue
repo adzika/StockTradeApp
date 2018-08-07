@@ -11,6 +11,15 @@
   import Portfolio from './components/Portfolio'
 
   export default {
+    data() {
+      return {
+        listOfStocks: [{
+          'name': 'BMW',
+          'price': 110,
+          'quantity': 10
+        }]
+      }
+    },
     components: {
       'app-header': Header,
       'app-main-screen': MainScreen,
