@@ -5,8 +5,13 @@
 </template>
 
 <script>
+  import StockCard from '../components/StockCard';
+
     export default {
-        name: "Stocks"
+        name: "Stocks",
+      components: {
+          'app-stock-card': StockCard
+      }
     }
 </script>
 

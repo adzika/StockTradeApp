@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-stock-card v-for="item in listOfStocks"></app-stock-card>
+    <app-stock-card v-for="item in $store.state.listOfStocks" :item="item"></app-stock-card>
   </div>
 </template>
 
@@ -8,7 +8,6 @@
   import StockCard from '../components/StockCard.vue'
 
   export default {
-    props: ['listOfStocks'],
     components: {
       'app-stock-card': StockCard
     }

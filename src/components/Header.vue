@@ -44,7 +44,7 @@
 
 <script>
   export default {
-    name: "Header.vue"
+    name: "Header"
   }
 </script>
 

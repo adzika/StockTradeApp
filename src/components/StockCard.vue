@@ -3,7 +3,7 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-header">
-          <p>BMW (Price: { price } | Quantity: { quantity })</p>
+          <p>{{ item.name }} (Price: {{ item.price }} | Quantity: {{ item.quantity }})</p>
         </div>
         <div class="card-body">
           <input type="text" placeholder="Quantity">
@@ -16,10 +16,8 @@
 
 <script>
   export default {
-    data() {
-
-    },
-    name: "StockCard.vue"
+    props: ['item'],
+    name: "StockCard"
   }
 </script>
 
