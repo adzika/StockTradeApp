@@ -19,7 +19,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">End Day</a>
+            <a class="nav-link" @click="endDay">End Day</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -43,8 +43,15 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
+
   export default {
-    name: "Header"
+    name: "Header",
+    methods: {
+      ...mapActions([
+        'endDay'
+      ])
+    }
   }
 </script>
 

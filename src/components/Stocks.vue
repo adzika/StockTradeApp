@@ -1,20 +1,23 @@
 <template>
-  <div class="container">
-    <app-stock-card></app-stock-card>
-  </div>
+    <div class="row">
+    <app-available-stock-card v-for="item in $store.state.stocksForBuying" :item="item"></app-available-stock-card>
+    </div>
 </template>
 
 <script>
-  import StockCard from '../components/StockCard';
+  import AvailableStockCard from '../components/AvailableStockCard';
 
     export default {
-        name: "Stocks",
+      name: "Stocks",
       components: {
-          'app-stock-card': StockCard
+          'app-available-stock-card': AvailableStockCard
       }
     }
 </script>
 
 <style scoped>
+  .row {
+    max-width: 100%;
+  }
 
 </style>
