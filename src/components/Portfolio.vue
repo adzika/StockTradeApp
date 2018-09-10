@@ -1,6 +1,6 @@
 <template>
   <div>
-    <app-stock-card v-for="item in $store.state.ownedStocks" :item="item"></app-stock-card>
+    <app-stock-card v-for="item of $store.state.ownedStocks" :item="item"></app-stock-card>
   </div>
 </template>
 

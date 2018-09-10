@@ -3,7 +3,7 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-header">
-          <p>{{ item.name }} (Price: {{ item.price }} | Quantity: {{ item.quantity }})</p>
+          <p>{{ item.name }} (Price: {{ getStockPrice(item.name) }} | Quantity: {{ item.quantity }})</p>
         </div>
         <div class="card-body">
           <input type="text" placeholder="Quantity">
@@ -15,9 +15,16 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     props: ['item'],
-    name: "StockCard"
+    name: "StockCard",
+    computed: {
+      ...mapGetters([
+        'getStockPrice'
+      ])
+    }
   }
 </script>
 

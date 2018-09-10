@@ -9,9 +9,9 @@ function getRandomArbitrary(min, max) {
 
 export const store = new Vuex.Store({
   state: {
+    funds: 1000,
     ownedStocks: [{
-      'name': 'BMW',
-      'price': 110,
+      'name': 'Lime Tree Software',
       'quantity': 10
     }],
     stocksForBuying: [{
@@ -39,18 +39,37 @@ export const store = new Vuex.Store({
         item.price += Math.round(priceChange);
       }
     },
-    buy: state => {
-
+    buy: (state, payload) => {
+      state.funds -= payload.cost;
+      let foundStock = state.ownedStocks.find((item) => {
+        return item.name === payload.name;
+      });
+      if (foundStock) {
+        foundStock.quantity += payload.quantity;
+      } else {
+        state.ownedStocks.push({
+          'name': payload.name,
+          'quantity': payload.quantity
+        })
+      }
     }
   },
   getters: {
     getAvailableStocks: state => {
       return state.stocksForBuying
+    },
+    getStockPrice: (state) => (name) => {
+      return state.stocksForBuying.find((item) => {
+        return item.name === name;
+      }).price;
     }
   },
   actions: {
     endDay: ({ commit }) => {
       commit('endDay');
     },
+    buy: ({ commit }, payload) => {
+      commit('buy', payload);
+    }
   }
 });

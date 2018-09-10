@@ -33,7 +33,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">Funds</a>
+            Funds: {{ $store.state.funds }}
           </li>
 
         </ul>

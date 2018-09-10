@@ -5,7 +5,7 @@
     <p>You may Save & Load your Data<br>
     Click on 'End Day' to begin a new Day!</p>
     <hr>
-    <p>Your funds: { funds }</p>
+    <p>Your funds: {{ $store.state.funds }}</p>
     </div>
   </div>
 </template>
