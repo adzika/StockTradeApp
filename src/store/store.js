@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -52,6 +53,16 @@ export const store = new Vuex.Store({
           'quantity': payload.quantity
         })
       }
+    },
+    sell: (state, payload) => {
+      state.funds += payload.price;
+      let foundStock = state.ownedStocks.find((item) => {
+        return item.name === payload.name;
+      });
+      foundStock.quantity -= payload.quantity;
+      if (foundStock.quantity === 0) {
+        state.ownedStocks.splice(state.ownedStocks.indexOf(foundStock) ,1)
+      }
     }
   },
   getters: {
@@ -70,6 +81,10 @@ export const store = new Vuex.Store({
     },
     buy: ({ commit }, payload) => {
       commit('buy', payload);
+    },
+    sell: ({ commit }, payload) => {
+      commit('sell', payload);
     }
-  }
+  },
+  plugins: [createPersistedState()]
 });
