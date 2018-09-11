@@ -1,23 +1,23 @@
 <template>
     <div class="row">
-    <app-available-stock-card v-for="item of $store.state.stocksForBuying" :item="item"></app-available-stock-card>
+    <app-stocks-stock-card v-for="item of $store.state.stocksForBuying" :item="item"></app-stocks-stock-card>
     </div>
 </template>
 
 <script>
-  import AvailableStockCard from '../components/AvailableStockCard';
+  import StocksStockCard from './StocksStockCard';
 
     export default {
       name: "Stocks",
       components: {
-          'app-available-stock-card': AvailableStockCard
-      }
+          'app-stocks-stock-card': StocksStockCard
+      },
     }
 </script>
 
 <style scoped>
   .row {
-    max-width: 100%;
+    padding-top: 15px;
   }
 
 </style>

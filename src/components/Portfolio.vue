@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import StockCard from '../components/StockCard.vue'
+  import StockCard from './PortfolioStockCard.vue'
 
   export default {
     components: {

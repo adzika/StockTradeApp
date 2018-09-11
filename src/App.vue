@@ -7,7 +7,7 @@
 
 <script>
   import Header from './components/Header'
-  import MainScreen from './components/MainScreen'
+  import MainScreen from './components/Home'
   import Portfolio from './components/Portfolio'
 
   export default {
@@ -15,11 +15,16 @@
       'app-header': Header,
       'app-main-screen': MainScreen,
       'app-portfolio': Portfolio
+    },
+    created() {
+      this.$store.dispatch('initStocks');
     }
   }
 
 </script>
 
 <style>
-
+  body {
+    padding: 30px;
+  }
 </style>

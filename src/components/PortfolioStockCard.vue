@@ -39,6 +39,8 @@
             quantity: this.quantity,
             name: this.item.name
           })
+        } else {
+          alert("You don't have enough stocks!")
         }
       }
     }

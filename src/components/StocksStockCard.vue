@@ -1,12 +1,22 @@
 <template>
-    <div class="col-sm-6">
+    <div class="col-sm-6 col-md-4">
       <div class="card">
         <div class="card-header">
           <p>{{ item.name }} (Price: {{ item.price }})</p>
         </div>
         <div class="card-body">
-          <input type="number" v-model.number="quantity" placeholder="Quantity">
-          <button class="btn btn-info" @click="buy">Buy</button>
+
+          <input
+            type="number"
+            v-model.number="quantity"
+            placeholder="Quantity">
+
+          <button
+            class="btn btn-success"
+            @click="buy"
+            :disabled="quantity <= 0 || !Number.isInteger(quantity)"
+            >Buy</button>
+
         </div>
       </div>
     </div>
@@ -31,6 +41,8 @@
               cost: this.item.price * this.quantity,
               quantity: this.quantity
             });
+          } else {
+            alert("You don't have enough funds!");
           }
         }
       }
@@ -41,5 +53,7 @@
 </script>
 
 <style scoped>
-
+  .card {
+    margin-bottom: 15px;
+  }
 </style>

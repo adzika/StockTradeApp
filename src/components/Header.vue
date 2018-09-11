@@ -11,24 +11,32 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <router-link class="nav-link" to="/portfolio">Portfolio</router-link>
+            <router-link class="nav-link" to="/portfolio" active-class="active">Portfolio</router-link>
           </li>
 
           <li class="nav-item">
-            <router-link class="nav-link" to="/stocks">Stocks</router-link>
+            <router-link class="nav-link" to="/stocks" active-class="active">Stocks</router-link>
           </li>
+        </ul>
 
+        <ul class="nav navbar-nav navbar-right">
           <li class="nav-item">
             <a class="nav-link" @click="endDay">End Day</a>
           </li>
 
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#" id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
               Save & Load
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Save</a>
-              <a class="dropdown-item" href="#">Load</a>
+              <a class="dropdown-item" href="#">Save Data</a>
+              <a class="dropdown-item" href="#">Load Data</a>
             </div>
           </li>
 
