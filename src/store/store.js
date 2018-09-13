@@ -55,18 +55,16 @@ export const store = new Vuex.Store({
       }
     },
     sell: (state, payload) => {
-      state.funds += payload.price;
-      let foundStock = state.ownedStocks.find((item) => {
-        return item.name === payload.name;
-      });
-      foundStock.quantity -= payload.quantity;
-      if (foundStock.quantity === 0) {
-        state.ownedStocks.splice(state.ownedStocks.indexOf(foundStock), 1)
+      let foundStock = state.ownedStocks.find(item => item.name === payload.name);
+      if (foundStock) {
+        if (payload.quantity > 0 && payload.quantity <= foundStock.quantity) {
+          foundStock.quantity -= payload.quantity;
+        } else {
+          state.ownedStocks.splice(state.ownedStocks.indexOf(foundStock), 1);
+        }
+        state.funds += payload.price * payload.quantity;
       }
     },
-    setStocks: (state, stocks) => {
-      state.stocks = stocks;
-    }
   },
   getters: {
     getAvailableStocks: state => {
@@ -88,9 +86,6 @@ export const store = new Vuex.Store({
     sell: ({commit}, payload) => {
       commit('sell', payload);
     },
-    initStocks: ({commit}) => {
-      commit('setStocks', stocks);
-    }
   },
   plugins: [createPersistedState()]
 });

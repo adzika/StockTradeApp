@@ -35,7 +35,7 @@
         if (this.quantity > 0 && this.quantity <= this.item.quantity) {
           console.log(this.item.quantity);
           this.$store.dispatch('sell', {
-            price: this.getStockPrice(this.item.name) * this.quantity,
+            price: this.getStockPrice(this.item.name),
             quantity: this.quantity,
             name: this.item.name
           })

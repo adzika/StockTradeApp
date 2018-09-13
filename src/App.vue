@@ -16,9 +16,6 @@
       'app-main-screen': MainScreen,
       'app-portfolio': Portfolio
     },
-    created() {
-      this.$store.dispatch('initStocks');
-    }
   }
 
 </script>
