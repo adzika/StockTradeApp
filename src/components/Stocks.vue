@@ -1,6 +1,6 @@
 <template>
-    <div class="row">
-    <app-stocks-stock-card v-for="item of $store.state.stocksForBuying" :item="item"></app-stocks-stock-card>
+    <div class="stocksGrid">
+      <app-stocks-stock-card v-for="item of $store.state.stocksForBuying" :item="item"></app-stocks-stock-card>
     </div>
 </template>
 
@@ -16,8 +16,8 @@
 </script>
 
 <style scoped>
-  .row {
-    padding-top: 15px;
+  .stocksGrid {
+    display: grid;
   }
 
 </style>

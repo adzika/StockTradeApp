@@ -1,25 +1,27 @@
 <template>
-    <div class="col-sm-6 col-md-4">
+
       <div class="card">
         <div class="card-header">
-          <p>{{ item.name }} (Price: {{ item.price }})</p>
+          <p>{{ item.name }} <small>(Price: {{ item.price }})</small></p>
         </div>
         <div class="card-body">
 
           <input
             type="number"
             v-model.number="quantity"
-            placeholder="Quantity">
+            placeholder="Quantity"
+            :class="{danger: insufficientFunds}"
+            class="quantity"
+            >
 
           <button
             class="btn btn-success"
             @click="buy"
-            :disabled="quantity <= 0 || !Number.isInteger(quantity)"
-            >Buy</button>
+            :disabled="insufficientFunds || quantity <= 0"
+            >{{ insufficientFunds ? 'Insufficient Funds' : 'Buy'}}</button>
 
         </div>
       </div>
-    </div>
 </template>
 
 <script>
@@ -31,22 +33,23 @@
         quantity: 0
       }
     },
+    computed: {
+      funds() {
+        return this.$store.getters.getFunds;
+      },
+      insufficientFunds() {
+        return this.item.price * this.quantity > this.funds;
+      }
+    },
     methods: {
       buy() {
-        if (this.quantity > 0) {
-          if (this.$store.state.funds >= this.item.price * this.quantity) {
-            console.log(this.quantity, this.item.name);
             this.$store.dispatch('buy', {
               name: this.item.name,
               cost: this.item.price * this.quantity,
               quantity: this.quantity
             });
-          } else {
-            alert("You don't have enough funds!");
-          }
         }
-      }
-    },
+      },
     props: ['item'],
     name: "AvailableStockCard"
   }
@@ -55,5 +58,12 @@
 <style scoped>
   .card {
     margin-bottom: 15px;
+  }
+  .danger {
+    border: 1px solid red;
+    outline-color: red;
+  }
+  .quantity {
+    width: 70px;
   }
 </style>

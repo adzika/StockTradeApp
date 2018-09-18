@@ -33,24 +33,34 @@ export const store = new Vuex.Store({
       }]
   },
   mutations: {
-    endDay: state => {
-      let updatedStocks = [...state.stocksForBuying];
-      for (let item of updatedStocks) {
-        const priceChange = item.price * getRandomArbitrary(-11, 11) * 0.01;
-        item.price += Math.round(priceChange);
-      }
+    setStocks (state, stocks) {
+      state.stocksForBuying = stocks;
     },
-    buy: (state, payload) => {
-      state.funds -= payload.cost;
+    setPortfolio (state, portfolio) {
+      state.funds = portfolio.funds;
+      state.ownedStocks = portfolio.ownedStocks ? portfolio.ownedStocks : [];
+    },
+    randomizeStocks: state => {
+      state.stocksForBuying.forEach(item => {
+        item.price += Math.round(item.price * getRandomArbitrary(-11, 11) * 0.01);
+      });
+      //let updatedStocks = [...state.stocksForBuying];
+      //for (let item of updatedStocks) {
+        //const priceChange = item.price * getRandomArbitrary(-11, 11) * 0.01;
+        //item.price += Math.round(priceChange);
+      //}
+    },
+    buy: (state, {name, cost, quantity}) => {
+      state.funds -= cost;
       let foundStock = state.ownedStocks.find((item) => {
-        return item.name === payload.name;
+        return item.name === name;
       });
       if (foundStock) {
-        foundStock.quantity += payload.quantity;
+        foundStock.quantity += quantity;
       } else {
         state.ownedStocks.push({
-          'name': payload.name,
-          'quantity': payload.quantity
+          'name': name,
+          'quantity': quantity
         })
       }
     },
@@ -74,11 +84,18 @@ export const store = new Vuex.Store({
       return state.stocksForBuying.find((item) => {
         return item.name === name;
       }).price;
+    },
+    getFunds: state => {
+      return state.funds
+    },
+    getPortfolio: state => {
+      return state.ownedStocks
     }
+
   },
   actions: {
-    endDay: ({commit}) => {
-      commit('endDay');
+    randomizeStocks: ({commit}) => {
+      commit('randomizeStocks');
     },
     buy: ({commit}, payload) => {
       commit('buy', payload);
@@ -86,6 +103,20 @@ export const store = new Vuex.Store({
     sell: ({commit}, payload) => {
       commit('sell', payload);
     },
+    loadData: ({commit}) => {
+      Vue.http.get('data.json')
+        .then(response => response.json())
+        .then(data => {
+            if(data) {
+              const portfolio = {
+                ownedStocks: data.ownedStocks,
+                funds: data.funds
+              };
+              commit('setStocks', data.stocksForBuying);
+              commit('setPortfolio', portfolio);
+            }
+        });
+    }
   },
   plugins: [createPersistedState()]
 });

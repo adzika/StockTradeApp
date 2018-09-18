@@ -3,11 +3,23 @@
     <div class="col-sm-6">
       <div class="card">
         <div class="card-header">
-          <p>{{ item.name }} (Price: {{ getStockPrice(item.name) }} | Quantity: {{ item.quantity }})</p>
+          <p>{{ item.name }}
+            <small>(Price: {{ getStockPrice(item.name) }} | Quantity: {{ item.quantity }})</small>
+          </p>
         </div>
         <div class="card-body">
-          <input type="number" v-model.number="quantity" placeholder="Quantity">
-          <button class="btn btn-danger" @click="sell">Sell</button>
+          <input
+            type="number"
+            v-model.number="quantity"
+            placeholder="Quantity"
+            :class="{danger: insufficientQuantity}"
+          >
+          <button
+            class="btn btn-danger"
+            @click="sell"
+            :disabled="insufficientQuantity || quantity <=0"
+          >{{ insufficientQuantity ? 'Not enough Stocks' : 'Sell' }}
+          </button>
         </div>
       </div>
     </div>
@@ -15,7 +27,7 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
+  import {mapGetters} from 'vuex';
 
   export default {
     data() {
@@ -28,25 +40,29 @@
     computed: {
       ...mapGetters([
         'getStockPrice'
-      ])
+      ]),
+      insufficientQuantity() {
+        return this.quantity > this.item.quantity;
+      }
     },
     methods: {
       sell() {
-        if (this.quantity > 0 && this.quantity <= this.item.quantity) {
-          console.log(this.item.quantity);
-          this.$store.dispatch('sell', {
-            price: this.getStockPrice(this.item.name),
-            quantity: this.quantity,
-            name: this.item.name
-          })
-        } else {
-          alert("You don't have enough stocks!")
-        }
+        this.$store.dispatch('sell', {
+          price: this.getStockPrice(this.item.name),
+          quantity: this.quantity,
+          name: this.item.name
+        })
       }
     }
   }
 </script>
 
 <style scoped>
-
+  .danger {
+    border: 1px solid red;
+    outline-color: red;
+  }
+  .quantity {
+    width: 70px;
+  }
 </style>

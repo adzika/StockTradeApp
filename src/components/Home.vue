@@ -1,19 +1,24 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <p><h1>Trade or View your Portfolio</h1></p>
-    <p>You may Save & Load your Data<br>
-    Click on 'End Day' to begin a new Day!</p>
-    <hr>
-    <p>Your funds: {{ $store.state.funds }}</p>
+      <h1>Trade or View your Portfolio</h1>
+      <h6>You may Save & Load your Data</h6>
+        <h6>Click on 'End Day' to begin a New Day!</h6>
+      <hr>
+      <p>Your funds: {{ funds | currency }}</p>
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "MainScreen",
+  export default {
+    name: "MainScreen",
+    computed: {
+      funds() {
+        return this.$store.getters.getFunds;
+      }
     }
+  }
 </script>
 
 <style scoped>
